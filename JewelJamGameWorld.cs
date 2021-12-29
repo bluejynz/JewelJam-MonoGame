@@ -15,6 +15,7 @@ namespace JewelJam
 
         JewelJam game;
 
+        VisibilityTimer timerDouble, timerTriple;
         JewelCart jewelCart;
         SpriteGameObject titleScreen, gameOverScreen, helpScreen, helpButton;
         GameState currentState;
@@ -52,11 +53,16 @@ namespace JewelJam
             helpButton.LocalPosition = new Vector2(1270, 20);
             AddChild(helpButton);
 
+            timerDouble = AddComboImageWithTimer("spr_double");
+            timerTriple = AddComboImageWithTimer("spr_triple");
+
             titleScreen = AddOverlay("spr_title");
             gameOverScreen = AddOverlay("spr_gameover");
             helpScreen = AddOverlay("spr_frame_help");
 
             GoToState(GameState.TitleScreen);
+
+            ExtendedGame.AssetManager.PlaySong("snd_music", true);
         }
 
         //props and enums
@@ -71,7 +77,10 @@ namespace JewelJam
             {
                 base.Update(gameTime);
                 if (jewelCart.GlobalPosition.X > Size.X - 230)
+                {
                     GoToState(GameState.GameOver);
+                    ExtendedGame.AssetManager.PlaySoundEffect("snd_gameover");
+                }
             }
         }
 
@@ -128,6 +137,34 @@ namespace JewelJam
             titleScreen.Visible = currentState == GameState.TitleScreen;
             helpScreen.Visible = currentState == GameState.HelpScreen;
             gameOverScreen.Visible = currentState == GameState.GameOver;
+        }
+
+        VisibilityTimer AddComboImageWithTimer(string spriteName)
+        {
+            SpriteGameObject image = new SpriteGameObject(spriteName);
+            image.Visible = false;
+            image.LocalPosition = new Vector2(800, 400);
+            AddChild(image);
+
+            VisibilityTimer timer = new VisibilityTimer(image);
+            AddChild(timer);
+
+            return timer;
+        }
+
+        public void DoubleComboScored()
+        {
+            timerDouble.StartVisible(3);
+        }
+
+        public void TripleComboScored()
+        {
+            timerTriple.StartVisible(3);
+        }
+
+        public void WrongCombination()
+        {
+            jewelCart.PushForward();
         }
 
     }

@@ -14,5 +14,14 @@
     <File>D:/GitHub/JewelJam/Content/spr_title.jpg</File>
     <File>D:/GitHub/JewelJam/Content/spr_frame_help.png</File>
     <File>D:/GitHub/JewelJam/Content/spr_button_help.jpg</File>
+    <File>D:/GitHub/JewelJam/Content/spr_triple.png</File>
+    <File>D:/GitHub/JewelJam/Content/spr_double.png</File>
+    <File>D:/GitHub/JewelJam/Content/spr_glitter.png</File>
+    <File>D:/GitHub/JewelJam/Content/snd_double.wav</File>
+    <File>D:/GitHub/JewelJam/Content/snd_error.wav</File>
+    <File>D:/GitHub/JewelJam/Content/snd_gameover.wav</File>
+    <File>D:/GitHub/JewelJam/Content/snd_music.wma</File>
+    <File>D:/GitHub/JewelJam/Content/snd_single.wav</File>
+    <File>D:/GitHub/JewelJam/Content/snd_triple.wav</File>
   </SourceFiles>
 </SourceFileCollection>

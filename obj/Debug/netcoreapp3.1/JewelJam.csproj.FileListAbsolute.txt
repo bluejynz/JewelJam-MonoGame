@@ -47,3 +47,14 @@ D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_jewelcart.xnb
 D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_frame_help.xnb
 D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_gameover.xnb
 D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_title.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_button_help.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_double.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_triple.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\spr_glitter.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_double.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_error.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_gameover.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_music.wma
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_music.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_single.xnb
+D:\GitHub\JewelJam\bin\Debug\netcoreapp3.1\Content\snd_triple.xnb

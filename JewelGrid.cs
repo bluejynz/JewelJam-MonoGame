@@ -33,6 +33,12 @@ namespace JewelJam
                 jewel.Draw(gameTime, spriteBatch);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            foreach (Jewel j in grid)
+                j.Update(gameTime);
+        }
+
         //methods
         public override void Reset()
         {
@@ -42,7 +48,7 @@ namespace JewelJam
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    AddJewel(x, y);
+                    AddJewel(x, y, y);
                 }
             }
         }
@@ -52,56 +58,61 @@ namespace JewelJam
             if (!inputHelper.KeyPressed(Keys.Space))
                 return;
 
+            int combo = 0;
             int extraScore = 45;
             int mid = Width / 2;
             for(int y = 0; y < Height - 2; y++)
             {
                 if (IsValidCombination(grid[mid, y], grid[mid, y + 1], grid[mid, y + 2]))
                 {
+                    combo++;
                     JewelJam.GameWorld.AddScore(extraScore);
                     extraScore *= 3;
 
-                    RemoveJewel(mid, y);
-                    RemoveJewel(mid, y + 1);
-                    RemoveJewel(mid, y + 2);
+                    RemoveJewel(mid, y, -1);
+                    RemoveJewel(mid, y + 1, -2);
+                    RemoveJewel(mid, y + 2, -3);
                     y += 2;
                 }
             }
+            if (combo == 0)
+            {
+                ExtendedGame.AssetManager.PlaySoundEffect("snd_error");
+                JewelJam.GameWorld.WrongCombination();
+            }
+            else if (combo == 1)
+            {
+                ExtendedGame.AssetManager.PlaySoundEffect("snd_single");
+            }
+            else if (combo == 2)
+            {
+                JewelJam.GameWorld.DoubleComboScored();
+                ExtendedGame.AssetManager.PlaySoundEffect("snd_double");
+            }
+            else if (combo == 3)
+            {
+                JewelJam.GameWorld.TripleComboScored();
+                ExtendedGame.AssetManager.PlaySoundEffect("snd_triple");
+            }
         }
 
-        void RemoveJewel(int x, int y)
+        void RemoveJewel(int x, int y, int yStartForNewJewel)
         {
             for (int row = y; row > 0; row--)
             {
                 grid[x, row] = grid[x, row - 1];
-                grid[x, row].LocalPosition = GetCellPosition(x, row);
+                grid[x, row].TargetPosition = GetCellPosition(x, row);
             }
 
-            AddJewel(x, 0);
+            AddJewel(x, 0, yStartForNewJewel);
         }
 
-        void AddJewel(int x, int y)
+        void AddJewel(int x, int yTarget, int yStart)
         {
-            grid[x, y] = new Jewel();
-            grid[x, y].LocalPosition = GetCellPosition(x, y);
-            grid[x, y].Parent = this;
-        }
-
-        void MoveRowsDown()
-        {
-            for (int y = Height - 1; y > 0; y--)
-                for (int x = 0; x < Width; x++)
-                {
-                    grid[x, y] = grid[x, y - 1];
-                    grid[x, y].LocalPosition = GetCellPosition(x, y);
-                }
-
-            for (int x = 0; x < Width; x++)
-            {
-                grid[x, 0] = new Jewel();
-                grid[x, 0].LocalPosition = GetCellPosition(x, 0);
-                grid[x, 0].Parent = this;
-            }
+            grid[x, yTarget] = new Jewel();
+            grid[x, yTarget].Parent = this;
+            grid[x, yTarget].LocalPosition = GetCellPosition(x, yStart);
+            grid[x, yTarget].TargetPosition = GetCellPosition(x, yTarget);
         }
 
         public Vector2 GetCellPosition(int x, int y)
@@ -115,11 +126,12 @@ namespace JewelJam
             for(int x = 0; x < Width - 1; x++)
             {
                 grid[x, selectedRow] = grid[x + 1, selectedRow];
-                grid[x, selectedRow].LocalPosition = GetCellPosition(x, selectedRow);
+                grid[x, selectedRow].TargetPosition = GetCellPosition(x, selectedRow);
             }
 
             grid[Width - 1, selectedRow] = first;
-            grid[Width - 1, selectedRow].LocalPosition = GetCellPosition(Width - 1, selectedRow);
+            first.LocalPosition = GetCellPosition(Width, selectedRow);
+            first.TargetPosition = GetCellPosition(Width - 1, selectedRow);
 
         }
 
@@ -129,11 +141,12 @@ namespace JewelJam
             for(int x = Width - 1; x > 0; x--)
             {
                 grid[x, selectedRow] = grid[x - 1, selectedRow];
-                grid[x, selectedRow].LocalPosition = GetCellPosition(x, selectedRow);
+                grid[x, selectedRow].TargetPosition = GetCellPosition(x, selectedRow);
             }
 
             grid[0, selectedRow] = last;
-            grid[0, selectedRow].LocalPosition = GetCellPosition(0, selectedRow);
+            last.LocalPosition = GetCellPosition(-1, selectedRow);
+            last.TargetPosition = GetCellPosition(0, selectedRow);
         }
 
         bool IsValidCombination(Jewel a, Jewel b, Jewel c)
