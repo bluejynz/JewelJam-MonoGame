@@ -15,11 +15,7 @@ namespace JewelJam
         //constructors
         public Jewel() : base("spr_jewels")
         {
-            ColorType = ExtendedGame.Random.Next(3);
-            ShapeType = ExtendedGame.Random.Next(3);
-            NumberType = ExtendedGame.Random.Next(3);
-            int index = 9 * ColorType + 3 * ShapeType + NumberType;
-            spriteRectangle = new Rectangle(index * sprite.Height, 0, sprite.Height, sprite.Height);
+            RandomizeAllTypes();
             TargetPosition = Vector2.Zero;
             glitters = new GlitterField(sprite, 2, spriteRectangle);
             glitters.LocalPosition = -spriteRectangle.Location.ToVector2();
@@ -49,5 +45,13 @@ namespace JewelJam
         }
 
         //methods
+        public void RandomizeAllTypes()
+        {
+            ColorType = ExtendedGame.Random.Next(3);
+            ShapeType = ExtendedGame.Random.Next(3);
+            NumberType = ExtendedGame.Random.Next(3);
+            int index = 9 * ColorType + 3 * ShapeType + NumberType;
+            spriteRectangle = new Rectangle(index * sprite.Height, 0, sprite.Height, sprite.Height);
+        }
     }
 }

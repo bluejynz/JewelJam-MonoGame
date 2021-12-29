@@ -55,6 +55,19 @@ namespace JewelJam
 
         public override void HandleInput(InputHelper inputHelper)
         {
+            if (inputHelper.KeyPressed(Keys.R))
+            {
+                if (JewelJam.GameWorld.Score < 100)
+                    ExtendedGame.AssetManager.PlaySoundEffect("snd_error");
+                else
+                {
+                    JewelJam.GameWorld.ReduceScore(100);
+                    ExtendedGame.AssetManager.PlaySoundEffect("snd_single");
+                    foreach (Jewel j in grid)
+                        j.RandomizeAllTypes();
+                }
+            }
+
             if (!inputHelper.KeyPressed(Keys.Space))
                 return;
 

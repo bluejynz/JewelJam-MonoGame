@@ -42,5 +42,10 @@ namespace JewelJam
             MediaPlayer.Play(contentManager.Load<Song>(assetName));
         }
 
+        public void StopSong()
+        {
+            MediaPlayer.Stop();
+        }
+
     }
 }

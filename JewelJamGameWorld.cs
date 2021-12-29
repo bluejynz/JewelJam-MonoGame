@@ -86,6 +86,9 @@ namespace JewelJam
 
         public override void HandleInput(InputHelper inputHelper)
         {
+            if (inputHelper.KeyPressed(Keys.M))
+                ExtendedGame.AssetManager.StopSong();
+
             if (currentState == GameState.Playing)
             {
                 base.HandleInput(inputHelper);
@@ -120,6 +123,11 @@ namespace JewelJam
         {
             Score += points;
             jewelCart.PushBack();
+        }
+
+        public void ReduceScore(int points)
+        {
+            Score -= points;
         }
 
         public SpriteGameObject AddOverlay(string sprName)
