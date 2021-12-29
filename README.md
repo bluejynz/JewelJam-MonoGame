@@ -25,4 +25,4 @@
 
 *Added on commit [base game ready](https://github.com/bluejynz/JewelJam-MonoGame/commit/6c035de1bc0a3a79d56f2c0009c85b5d9093697b)
 
-**Added on commit 
+**Added on commit [added new funcionality - use points to randomize all jewels](https://github.com/bluejynz/JewelJam-MonoGame/commit/5a2238e85c219daa8b9e41b6659866b7aba268f9)
